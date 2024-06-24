@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CateringChia</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar start -->
+    <nav class="navbar" x-data>
+        <a href="#" class="navbar-logo">Chia<span>catering</span></a>
+
+
+        <div class="navbar-nav">
+
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+
+        </div>
+
+        <div class="navbar-extra">
+            <a href="#" id="search-button" style="color: rgb(0, 0, 0);"><i data-feather="search"></i></a>
+            <a href="#" id="shopping-cart-button" style="color: rgb(0, 0, 0);"><i data-feather="shopping-cart"></i>
+        <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity" ></span></a>
+            <a href="#" id="hamburger-menu" style="color: rgb(0, 0, 0);"><i data-feather="menu"></i></a>
+        </div>
+
+        <!-- Search Form start -->
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box"><i data-feather="search"></i></label>
+        </div>
+        <!-- Search Form end -->
+
+        <!-- Shopping Cart start -->
+        <div class="shopping-cart">
+            <template x-for="(item, index) in $store.cart.items" x-keys="index">
+                
+                <div class="cart-item">
+                <img :src="'img/menu/' + item.Gambar" alt="Product 1">
+                <div class="item-detail"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" @click.prevent="$store.cart.trash(item.Id)" id="trash">
+<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+</svg>
+                    <h3 x-text="item.Menu"></h3> 
+                <div class="item-price"><span x-text="rupiah(item.Harga)"></span>
+                &times;
+            <button id="remove" @click="$store.cart.remove(item.Id)">&minus;</button>
+        <span class="quantity" x-text="item.quantity"></span>
+    <button id="add" @click="$store.cart.add(item)">&plus;</button>&equals;
+<span x-text="rupiah(item.total)"></span>
+
+</div>
+</div>
+               
+</div></template>
+            <h4 x-show="!$store.cart.items.length">KERANJANG KOSONG</h4>
+            <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+            <div class="form-container" x-show="$store.cart.items.length">
+                <form action="" id="checkoutForm">
+                    <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+                    <input type="hidden" name="total" x-model="$store.cart.total">
+                    <h5>Customer Detail</h5>
+                    <label for="name">
+                        <span >Name</span>
+                        <input type="text" name="name" id="name" style="margin-left:8px;">
+                    </label>
+                    <label for="email">
+                        <span>Telepon</span>
+                        <input type="text" name="email" id="email" style="margin-left:10px;">
+                    </label>
+                    <label for="telepon">
+                        <span>Catatan</span>
+                        <input type="text" name="telepon" id="telepon">
+                    </label>
+                    <button type="submit" class="checkout-button disabled" id="checout-button" value="checkout">CheckOut</button>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- Shopping Cart end -->
+
+    </nav>
+    <!-- Navbar end -->
+
+    <!-- Hero Section start -->
+    <section class="hero" id="home">
+        <div class="mask-container">
+            <main class="content">
+                <h1>Mari Nikmati Sekotak <span>Nasi</span></h1>
+
+            </main>
+        </div>
+    </section>
+    <!-- Hero Section end -->
+
+    <!-- About Section start -->
+    <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+
+        <div class="row">
+            <div class="about-img">
+                <img src="img/menu/nasi2.jpg" alt="Tentang Kami">
+            </div>
+            <div class="content">
+                <h3>Kenapa memilih produk kami? </h3>
+                <p>Selain harganya terjangkau, produk kami juga selalu terjaga kualitas bahan yang di pakai dan produk kami tidak menggunakan bahan pengawet atau bahan bahan yang membahayakan. Masakan kami adalah masakan rumahan.
+
+            </div>
+        </div>
+    </section>
+    <!-- About Section end -->
+
+    <!-- Menu Section start -->
+    <section id="menu" class="menu" x-data="products">
+        <h2><span>Menu</span> Kami</h2>
+
+
+        <div class="row" x-data="products">
+            <template x-for="(item, index) in items" :key="index">
+            <div class="menu-card">
+                <img :src="'img/menu/' + item.Gambar" class="menu-card-img">
+                <h3 class="menu-card-title" x-text="item.Menu"></h3>
+                <p class="menu-card-price" style="color: #a18167;;" x-text="rupiah(item.Harga)"></p>
+                <a @click="$store.cart.add(item)" class="menu-card-price" style="margin-top: 1rem;
+                    display: inline-block;
+                    padding: 0.5rem 0.5rem;
+                    font-size: 1rem;
+                    color: #000000;
+                    border-radius: 50%;
+                    padding: 10px;
+                    background-color:  #edc9af;
+                    cursor: pointer;
+                    ">Beli Sekarang</a>
+            </div>
+        </template>
+        </div>
+
+
+    </section>
+    <!-- Menu Section end -->
+
+
+
+    <!-- Footer start -->
+    <footer>
+        <div class="socials ">
+            <a href="https://www.instagram.com/cateringby.chia?igsh=MXB4dWV0NHZ4bGxrZg=="><i data-feather="instagram"></i></a>
+
+        </div>
+
+        <div class="links ">
+            <a href="#home ">Home</a>
+            <a href="#about ">Tentang Kami</a>
+            <a href="#menu ">Menu</a>
+
+        </div>
+
+        <div class="credit ">
+            <p>Created by <a href=" ">CateringChia</a>. | &copy; 2024.</p>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- My Javascript -->
+    <script src="js/app.js"></script>
+    <script src="js/script.js "></script>
+</body>
+
+</html>

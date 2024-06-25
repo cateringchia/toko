@@ -1,4 +1,19 @@
 // Toggle class active untuk hamburger menu
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert("Silahkan Di Order");
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode == 123 || // F12
+        (e.ctrlKey && e.shiftKey && e.keyCode == 73) || // Ctrl+Shift+I
+        (e.ctrlKey && e.shiftKey && e.keyCode == 74) || // Ctrl+Shift+J
+        (e.ctrlKey && e.keyCode == 85) || // Ctrl+U
+        (e.ctrlKey && e.keyCode == 83)) { // Ctrl+S
+        e.preventDefault();
+        alert("Inspect element is disabled.");
+    }
+});
 const navbarNav = document.querySelector('.navbar-nav');
 // ketika hamburger menu di klik
 document.querySelector('#hamburger-menu').onclick = () => {
